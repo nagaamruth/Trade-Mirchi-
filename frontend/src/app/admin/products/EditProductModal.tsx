@@ -37,7 +37,7 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
         currentPrice: product.currentPrice?.toString() || "",
         stock: product.stock?.toString() || "",
         status: product.status || "active",
-        imageUrl: product.imageUrl || "",
+        imageUrl: product.images?.[0] || product.imageUrl || "",
       });
     }
   }, [product]);
@@ -63,11 +63,18 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axios.put(`/api/products/${product._id}`, {
-        ...formData,
+      const { imageUrl, ...restFormData } = formData;
+      const submitData: any = {
+        ...restFormData,
         currentPrice: Number(formData.currentPrice),
         stock: Number(formData.stock),
-      }, {
+      };
+      
+      if (imageUrl) {
+        submitData.images = [imageUrl];
+      }
+
+      await axios.put(`/api/products/${product._id}`, submitData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       onSuccess();
