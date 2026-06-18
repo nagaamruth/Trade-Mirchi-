@@ -230,6 +230,11 @@ export default function AdminSettingsPage() {
               <p className="text-sm text-muted-foreground italic text-center py-4">No live rates configured. Add one above.</p>
             )}
           </div>
+          <div className="pt-4 mt-6 border-t border-white/5 flex justify-end">
+            <Button size="sm" onClick={handleSave} className="gap-2 px-4 rounded-full shadow-lg shadow-primary/20">
+              <Save className="w-4 h-4" /> Save Rates
+            </Button>
+          </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bg-card border border-white/5 rounded-2xl p-6 shadow-sm">
@@ -260,6 +265,11 @@ export default function AdminSettingsPage() {
               <label className="text-sm font-medium text-muted-foreground">Office Address</label>
               <textarea rows={2} value={localSettings.contactDetails?.address || ""} onChange={(e) => handleContactChange("address", e.target.value)} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
             </div>
+          </div>
+          <div className="pt-4 mt-6 border-t border-white/5 flex justify-end">
+            <Button size="sm" onClick={handleSave} className="gap-2 px-4 rounded-full shadow-lg shadow-primary/20">
+              <Save className="w-4 h-4" /> Save Contact Info
+            </Button>
           </div>
         </motion.div>
       </div>
