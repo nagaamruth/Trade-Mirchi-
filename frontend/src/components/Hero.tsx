@@ -8,6 +8,7 @@ import ParticleBackground from "./ParticleBackground";
 import { ArrowRight, Leaf, BarChart3, LineChart, ShieldCheck } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { useState } from "react";
+import LivePriceTicker from "./LivePriceTicker";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -86,11 +87,18 @@ export default function Hero() {
           <button onClick={() => window.location.href = '/products'} className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 h-14 rounded-full shadow-[0_0_40px_-10px_rgba(255,107,0,0.5)]">
             Explore Marketplace <ArrowRight className="ml-2 w-5 h-5" />
           </button>
-          {mounted && !user && (
-            <Button size="lg" variant="outline" className="text-lg px-8 h-14 rounded-full border-white/10 hover:bg-white/5 backdrop-blur-md" onClick={() => window.location.href = '/register'}>
-              Partner With Us
-            </Button>
-          )}
+          <Button size="lg" variant="outline" className="text-lg px-8 h-14 rounded-full border-white/10 hover:bg-white/5 backdrop-blur-md" onClick={() => window.location.href = '/contact'}>
+            Contact Us
+          </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.9, ease: "easeOut" }}
+          className="w-full mb-16"
+        >
+          <LivePriceTicker />
         </motion.div>
 
         {/* Dashboard Preview Graphic */}

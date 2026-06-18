@@ -23,28 +23,29 @@ export default function MobileBottomNav() {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-xl border-t border-white/10 flex items-center justify-around p-2 pb-[env(safe-area-inset-bottom,0.5rem)]">
-      {links.map((link) => {
-        const Icon = link.icon;
-        const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
-        return (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={`relative flex flex-col items-center gap-1 p-2 rounded-xl transition-all ${
-              isActive && link.href === pathname ? "text-primary" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Icon className={`w-6 h-6 ${isActive && link.href === pathname ? 'fill-primary/20' : ''}`} />
-            <span className="text-[10px] font-medium">{link.name}</span>
-            {link.badge !== undefined && link.badge > 0 && (
-              <span className="absolute top-1 right-2 w-4 h-4 bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center rounded-full border border-background">
-                {link.badge}
-              </span>
-            )}
-          </Link>
-        );
-      })}
-    </nav>
+    <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] w-auto max-w-[90vw]">
+      <nav className="bg-background/80 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-full flex items-center justify-center p-2 gap-2">
+        {links.map((link) => {
+          const Icon = link.icon;
+          const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+          return (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`relative p-3 rounded-full transition-all ${
+                isActive ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              }`}
+            >
+              <Icon className="w-6 h-6" />
+              {link.badge !== undefined && link.badge > 0 && (
+                <span className="absolute top-0.5 right-0.5 w-4 h-4 bg-red-500 text-[10px] font-bold text-white flex items-center justify-center rounded-full border-2 border-background">
+                  {link.badge}
+                </span>
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
   );
 }
