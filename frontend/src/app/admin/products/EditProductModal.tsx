@@ -26,6 +26,7 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
     imageUrl: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (product) {
@@ -40,6 +41,23 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
       });
     }
   }, [product]);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const data = new FormData();
+      data.append("file", file);
+      const res = await axios.post("/api/upload", data);
+      setFormData(prev => ({...prev, imageUrl: res.data.url}));
+    } catch (error) {
+      console.error("Upload failed", error);
+      alert("Failed to upload image");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,9 +128,25 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
                   <option value="draft">Draft</option>
                 </select>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Image URL</label>
-                <input type="text" value={formData.imageUrl} onChange={(e) => setFormData({...formData, imageUrl: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" placeholder="https://..." />
+              <div className="space-y-2 col-span-1 md:col-span-2">
+                <label className="text-sm font-medium">Product Image</label>
+                <div className="border-2 border-dashed border-white/10 rounded-xl p-6 flex flex-col items-center justify-center relative hover:border-primary/50 transition-colors">
+                  {formData.imageUrl ? (
+                    <div className="relative group flex flex-col items-center w-full">
+                      <img src={formData.imageUrl} alt="Uploaded" className="h-32 object-contain mb-4 rounded" />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-xl transition-opacity cursor-pointer">
+                         <span className="text-sm font-semibold">Change Image</span>
+                      </div>
+                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={handleFileUpload} accept="image/*" disabled={uploading} />
+                    </div>
+                  ) : (
+                    <>
+                      <Upload className="w-8 h-8 text-muted-foreground mb-2" />
+                      <span className="text-sm text-muted-foreground">{uploading ? "Uploading..." : "Click to upload image"}</span>
+                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={handleFileUpload} accept="image/*" disabled={uploading} />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
             <div className="space-y-2">

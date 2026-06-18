@@ -52,7 +52,7 @@ function ProductsContent() {
         </motion.div>
 
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="h-[400px] rounded-xl bg-secondary/20 animate-pulse border border-white/5" />
             ))}
@@ -66,7 +66,7 @@ function ProductsContent() {
             No products found matching your search.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {filteredProducts.map((product: Product, index: number) => (
               <ProductCard key={product._id} product={product} index={index} />
             ))}
