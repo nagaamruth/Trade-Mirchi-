@@ -10,6 +10,26 @@ export async function GET() {
     
     if (!settings) {
       settings = await Settings.create({});
+      settings = await Settings.findOne({}).lean();
+    }
+    
+    // Inject defaults for older documents that don't have these fields
+    if (!settings.liveRates || settings.liveRates.length === 0) {
+      settings.liveRates = [
+        { commodity: "Premium Teja", price: "₹22,500/q" },
+        { commodity: "Guntur Sannam", price: "₹18,200/q" },
+        { commodity: "Turmeric Finger", price: "₹14,500/q" },
+        { commodity: "Cotton", price: "₹7,200/q" }
+      ];
+    }
+    if (!settings.contactDetails) {
+      settings.contactDetails = {
+        email: "contact@trademirchi.com",
+        phone: "+91 9059815694",
+        whatsapp: "+91 9059815694",
+        address: "Malakpet Mirchi Market, Hyderabad, Telangana, India",
+        workingHours: "Mon-Sat: 9AM - 6PM"
+      };
     }
     
     return NextResponse.json({ settings });
