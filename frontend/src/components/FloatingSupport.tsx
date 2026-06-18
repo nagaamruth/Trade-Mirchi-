@@ -50,7 +50,7 @@ export default function FloatingSupport() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 w-80 sm:w-96 h-[30rem] max-h-[75vh] bg-card border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col overflow-hidden"
+            className="fixed bottom-32 md:bottom-24 right-4 md:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[30rem] max-h-[70vh] bg-card border border-white/10 rounded-2xl shadow-2xl z-[100] flex flex-col overflow-hidden"
           >
             <div className="bg-primary/10 p-4 border-b border-white/5 flex justify-between items-center shrink-0">
               <div className="flex items-center gap-2">
@@ -112,7 +112,7 @@ export default function FloatingSupport() {
         )}
       </AnimatePresence>
 
-      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-[90]">
+      <div className="fixed bottom-24 md:bottom-6 right-4 md:right-6 flex flex-col gap-3 z-[90]">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
