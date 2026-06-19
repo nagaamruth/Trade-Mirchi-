@@ -18,10 +18,14 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
   const { token } = useStore();
   const [formData, setFormData] = useState({
     name: "",
+    variety: "",
     description: "",
     category: "",
     currentPrice: "",
     stock: "",
+    moq: "",
+    origin: "",
+    grade: "",
     status: "",
     imageUrl: "",
   });
@@ -32,10 +36,14 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
     if (product) {
       setFormData({
         name: product.name || "",
+        variety: product.variety || "",
         description: product.description || "",
         category: product.category || "Red Chilli",
         currentPrice: product.currentPrice?.toString() || "",
         stock: product.stock?.toString() || "",
+        moq: product.moq?.toString() || "100",
+        origin: product.origin || "",
+        grade: product.grade || "",
         status: product.status || "active",
         imageUrl: product.images?.[0] || product.imageUrl || "",
       });
@@ -68,6 +76,7 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
         ...restFormData,
         currentPrice: Number(formData.currentPrice),
         stock: Number(formData.stock),
+        moq: Number(formData.moq),
       };
       
       if (imageUrl) {
@@ -111,6 +120,10 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
                 <input required type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Variety</label>
+                <input required type="text" value={formData.variety} onChange={(e) => setFormData({...formData, variety: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
+              </div>
+              <div className="space-y-2">
                 <label className="text-sm font-medium">Category</label>
                 <select required value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary">
                   <option value="Red Chilli">Red Chilli</option>
@@ -126,6 +139,18 @@ export default function EditProductModal({ isOpen, onClose, onSuccess, product }
               <div className="space-y-2">
                 <label className="text-sm font-medium">Stock (units)</label>
                 <input required type="number" value={formData.stock} onChange={(e) => setFormData({...formData, stock: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Minimum Order (MOQ)</label>
+                <input required type="number" value={formData.moq} onChange={(e) => setFormData({...formData, moq: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Origin</label>
+                <input required type="text" value={formData.origin} onChange={(e) => setFormData({...formData, origin: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Grade</label>
+                <input required type="text" value={formData.grade} onChange={(e) => setFormData({...formData, grade: e.target.value})} className="w-full bg-secondary/30 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Status</label>

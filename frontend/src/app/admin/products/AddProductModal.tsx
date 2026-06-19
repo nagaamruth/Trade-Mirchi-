@@ -18,7 +18,8 @@ export default function AddProductModal({ isOpen, onClose, onSuccess }: AddProdu
   const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    category: "Spices",
+    variety: "",
+    category: "Red Chilli",
     description: "",
     stock: 0,
     moq: 1,
@@ -90,10 +91,17 @@ export default function AddProductModal({ isOpen, onClose, onSuccess }: AddProdu
                 </div>
 
                 <div className="space-y-2">
+                  <label className="text-sm font-medium">Variety</label>
+                  <input required value={formData.variety} onChange={e => setFormData({...formData, variety: e.target.value})} className="w-full bg-background border border-white/10 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary" placeholder="e.g. Teja, Sannam" />
+                </div>
+
+                <div className="space-y-2">
                   <label className="text-sm font-medium">Category</label>
                   <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-background border border-white/10 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary">
-                    <option value="Spices">Spices</option>
-                    <option value="Grains">Grains</option>
+                    <option value="Red Chilli">Red Chilli</option>
+                    <option value="Turmeric">Turmeric</option>
+                    <option value="Cotton">Cotton</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
 
